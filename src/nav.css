@@ -1,0 +1,28 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #ddd;
+}
+
+.dark-mode .navbar {
+  background-color: #2c2c2c;
+  border-bottom: 1px solid #444;
+}
+
+.nav-left {
+  flex: 1;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.portfolio-nav {
+  display: flex;
+  flex-direction: column;
+}

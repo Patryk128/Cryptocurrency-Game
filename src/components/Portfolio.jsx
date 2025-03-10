@@ -150,7 +150,9 @@ function Portfolio() {
     <div className="container">
       <nav className="navbar">
         <div className="nav-left">
-          <h1>Portfolio & History</h1>
+          <header onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
+            <h1>Portfolio & History</h1>
+          </header>
         </div>
         <div className="nav-right">
           <button onClick={() => navigate("/")} className="home-btn">

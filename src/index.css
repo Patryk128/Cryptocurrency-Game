@@ -1,9 +1,7 @@
-body {
-  font-family: Arial, sans-serif;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  transition: all 0.3s ease;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .light-mode {
@@ -17,7 +15,8 @@ body {
 }
 
 .container {
-  padding: 20px;
+  width: 100%;
+  height: 100vh;
 }
 
 .header {
@@ -41,18 +40,12 @@ body {
 
 .prices,
 .portfolio {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
   margin: 15px 0;
-}
-
-.amount-input {
-  margin: 10px 0;
-  padding: 8px;
-  width: 200px;
-  background-color: inherit;
-  color: inherit;
-  border: 1px solid #666;
 }
 
 .actions {
@@ -148,7 +141,6 @@ input {
   color: #66b3ff;
 }
 
-/* src/index.css */
 .crypto-row {
   display: flex;
   align-items: center;
@@ -161,8 +153,9 @@ input {
 }
 
 .amount-input {
-  width: 100px;
-  padding: 8px;
+  width: 150px;
+  margin: 10px 0;
+  padding: 5px;
   background-color: inherit;
   color: inherit;
   border: 1px solid #666;
@@ -178,37 +171,6 @@ input {
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
-
-/* Reszta stylów pozostaje bez zmian */
-/* src/index.css */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: #f8f9fa; /* Jasny motyw */
-  border-bottom: 1px solid #ddd;
-}
-
-.dark-mode .navbar {
-  background-color: #2c2c2c; /* Ciemny motyw */
-  border-bottom: 1px solid #444;
-}
-
-.nav-left {
-  flex: 1;
-}
-
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.portfolio-nav {
-  display: flex;
-  flex-direction: column;
 }
 
 .portfolio-items {
@@ -251,37 +213,6 @@ input {
 
 .crypto-info {
   width: 150px;
-}
-
-/* Reszta stylów bez zmian */
-/* src/index.css */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #ddd;
-}
-
-.dark-mode .navbar {
-  background-color: #2c2c2c;
-  border-bottom: 1px solid #444;
-}
-
-.nav-left {
-  flex: 1;
-}
-
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.portfolio-nav {
-  display: flex;
-  flex-direction: column;
 }
 
 .portfolio-header {
@@ -336,16 +267,7 @@ input {
 }
 
 .price-info {
-  width: 200px;
-}
-
-.amount-input {
-  width: 100px;
-  padding: 8px;
-  background-color: inherit;
-  color: inherit;
-  border: 1px solid #666;
-  border-radius: 4px;
+  width: 300px;
 }
 
 .buy-btn {
@@ -357,50 +279,17 @@ input {
   background-color: #218838;
 }
 
-/* Reszta stylów bez zmian */
-/* src/index.css */
-.amount-input {
-  width: 150px; /* Zwiększ szerokość dla większej precyzji */
-  padding: 8px;
-  background-color: inherit;
-  color: inherit;
-  border: 1px solid #666;
-  border-radius: 4px;
-}
-/* src/index.css */
-
-/* Istniejące style dla .amount-input */
-.amount-input {
-  padding: 5px;
-  width: 100px;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-}
-
-/* Usuwanie strzałek dla wszystkich przeglądarek */
-
-/* Chrome, Safari, Edge, Opera */
 .amount-input::-webkit-inner-spin-button,
 .amount-input::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-/* Firefox */
-.amount-input {
-  -moz-appearance: textfield; /* Usuwa strzałki w Firefox */
-}
-
-/* Reszta stylów bez zmian */
-
 .portfolio-item span {
-  min-width: 120px; /* Zapewnia miejsce na dłuższe liczby */
+  min-width: 120px;
   display: inline-block;
 }
 
-/* Reszta stylów bez zmian */
-
-/* src/index.css */
 .prices-header {
   display: flex;
   justify-content: space-between;
@@ -419,8 +308,6 @@ input {
   font-size: 1em;
 }
 
-/* Reszta stylów bez zmian */
-/* src/index.css */
 .empty-portfolio {
   font-style: italic;
   color: #666;
@@ -430,8 +317,6 @@ input {
   color: #999;
 }
 
-/* Reszta stylów bez zmian */
-/* src/index.css */
 .portfolio-item {
   display: flex;
   align-items: center;
@@ -442,13 +327,6 @@ input {
   min-width: 120px;
 }
 
-.portfolio-item .amount-input {
-  width: 100px; /* Mniejsza szerokość w portfolio */
-}
-
-/* Reszta stylów bez zmian */
-
-/* src/index.css */
 .portfolio-item {
   display: flex;
   align-items: center;
@@ -458,7 +336,7 @@ input {
 .sell-all-btn {
   padding: 4px 8px;
   font-size: 0.9em;
-  background-color: #ff5733; /* Inny kolor dla wyróżnienia */
+  background-color: #ff5733;
   color: white;
   border: none;
   border-radius: 4px;
@@ -474,13 +352,11 @@ input {
   cursor: not-allowed;
 }
 
-/* Reszta stylów bez zmian */
-/* src/index.css */
 .popup {
   position: fixed;
   top: 20px;
   right: 20px;
-  background-color: #28a745; /* Zielony dla sukcesu */
+  background-color: #28a745;
   color: white;
   padding: 10px 20px;
   border-radius: 5px;
@@ -493,12 +369,10 @@ input {
   margin: 0;
 }
 
-/* Styl dla błędów (np. brak środków) */
 .popup.error {
-  background-color: #dc3545; /* Czerwony dla błędów */
+  background-color: #dc3545;
 }
 
-/* Animacja pojawiania się i znikania */
 @keyframes fadeInOut {
   0% {
     opacity: 0;
@@ -518,9 +392,6 @@ input {
   }
 }
 
-/* Reszta stylów bez zmian */
-
-/* src/index.css */
 .transactions-section {
   margin-top: 20px;
   padding: 10px;
@@ -536,8 +407,8 @@ input {
 .transactions-list {
   list-style: none;
   padding: 0;
-  max-height: 300px; /* Ograniczenie wysokości */
-  overflow-y: auto; /* Przewijanie, jeśli za dużo transakcji */
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .transaction-item {
@@ -548,11 +419,11 @@ input {
 }
 
 .transaction-item.buy {
-  background-color: #00ff00; /* Jasnozielony dla kupna */
+  background-color: #00ff00;
 }
 
 .transaction-item.sell {
-  background-color: #ff0000; /* Jasnoczerwony dla sprzedaży */
+  background-color: #ff0000;
 }
 
 .transaction-date {
@@ -560,12 +431,10 @@ input {
   color: #6c757d;
 }
 
-/* Reszta stylów bez zmian */
-/* src/index.css */
 .portfolio-btn {
   padding: 4px 8px;
   font-size: 0.9em;
-  background-color: #28a745; /* Zielony kolor */
+  background-color: #28a745;
   color: white;
   border: none;
   border-radius: 4px;
@@ -592,8 +461,6 @@ input {
   background-color: #0056b3;
 }
 
-/* Istniejące style dla portfolio i historii pozostają bez zmian */
-/* src/index.css */
 .home-btn {
   padding: 4px 8px;
   font-size: 0.9em;
@@ -610,18 +477,16 @@ input {
 }
 
 .trend-up {
-  color: #28a745; /* Zielony dla wzrostu */
+  color: #28a745;
   margin-left: 5px;
 }
 
 .trend-down {
-  color: #dc3545; /* Czerwony dla spadku */
+  color: #dc3545;
   margin-left: 5px;
 }
 
 .trend-neutral {
-  color: #6c757d; /* Szary dla braku zmiany */
+  color: #6c757d;
   margin-left: 5px;
 }
-
-/* Reszta stylów bez zmian */

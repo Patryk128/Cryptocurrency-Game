@@ -21,6 +21,7 @@ import {
 import { SiBinance, SiDogecoin, SiRipple } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
 import Welcome from "./Welcome";
+import "../nav.css";
 
 const cryptoList = {
   bitcoin: { name: "Bitcoin", icon: <FaBitcoin /> },
@@ -68,7 +69,7 @@ function Home() {
   const [sellAmounts, setSellAmounts] = useState({});
   const [lastUpdated, setLastUpdated] = useState(null);
   const [popupMessage, setPopupMessage] = useState(null);
-  const [trends, setTrends] = useState({}); // Stan dla trendów
+  const [trends, setTrends] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
@@ -110,38 +111,32 @@ function Home() {
 
     const fetchPricesAndTrends = async () => {
       try {
-        // Pobieranie cen i trendów w jednym zapytaniu
         const response = await axios.get(
           "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,binancecoin,dogecoin,ripple&order=market_cap_desc&per_page=5&page=1&sparkline=false"
         );
         const data = response.data || [];
-        console.log("API response:", data);
 
-        // Aktualizacja cen
         const newPrices = {};
         data.forEach((coin) => {
           newPrices[coin.id] = { usd: coin.current_price };
         });
-        console.log("New prices:", newPrices);
         dispatch(setPrices(newPrices));
         setLastUpdated(new Date().toLocaleTimeString());
 
-        // Aktualizacja trendów
         const newTrends = {};
         data.forEach((coin) => {
           const change24h = coin.price_change_percentage_24h;
           newTrends[coin.id] =
             change24h > 0 ? "up" : change24h < 0 ? "down" : "neutral";
         });
-        console.log("New trends:", newTrends);
         setTrends(newTrends);
       } catch (error) {
         console.error("Error fetching prices or trends:", error);
       }
     };
 
-    fetchPricesAndTrends(); // Początkowe pobranie cen i trendów
-    const interval = setInterval(fetchPricesAndTrends, 30000); // Odświeżanie co 30 sekund
+    fetchPricesAndTrends();
+    const interval = setInterval(fetchPricesAndTrends, 30000);
     return () => {
       unsubscribe();
       clearInterval(interval);
@@ -213,78 +208,9 @@ function Home() {
     }
   };
 
-  const sellCrypto = async (crypto, sellAll = false) => {
-    let amount = sellAll ? portfolio[crypto] : sellAmounts[crypto];
-    if (!amount || parseFloat(amount) <= 0 || !portfolio[crypto]) {
-      showPopup("Enter a valid amount to sell!");
-      return;
-    }
-
-    if (parseFloat(amount) > portfolio[crypto]) {
-      showPopup("You don't have enough cryptocurrency to sell!");
-      return;
-    }
-
-    const value = parseFloat(amount) * (prices[crypto]?.usd || 0);
-    const newBalance = balance + value;
-    const newPortfolio = { ...portfolio };
-    newPortfolio[crypto] = portfolio[crypto] - parseFloat(amount);
-
-    if (newPortfolio[crypto] <= 0) {
-      delete newPortfolio[crypto];
-    }
-
-    const newTransaction = {
-      type: "sell",
-      crypto: cryptoList[crypto].name,
-      amount: parseFloat(amount),
-      price: prices[crypto]?.usd || 0,
-      total: value,
-      date: new Date().toISOString(),
-    };
-
-    try {
-      const userDocRef = doc(db, "users", user.uid);
-      const userDoc = await getDoc(userDocRef);
-      const currentData = userDoc.exists() ? userDoc.data() : {};
-      const updatedTransactions = [
-        newTransaction,
-        ...(currentData.transactions || []),
-      ].slice(0, 50);
-
-      await updateDoc(userDocRef, {
-        balance: newBalance,
-        portfolio: newPortfolio,
-        transactions: updatedTransactions,
-      });
-      dispatch(setBalance(newBalance));
-      dispatch(setPortfolio(newPortfolio));
-      setSellAmounts((prev) => ({ ...prev, [crypto]: "" }));
-      showPopup(
-        sellAll
-          ? `Successfully sold all ${cryptoList[crypto].name}!`
-          : `Successfully sold ${formatNumber(amount)} ${
-              cryptoList[crypto].name
-            }!`
-      );
-    } catch (error) {
-      console.error("Error updating document:", error);
-      showPopup("An error occurred during sale.");
-    }
-  };
-
-  const sellAllCrypto = (crypto) => {
-    setSellAmounts((prev) => ({
-      ...prev,
-      [crypto]: portfolio[crypto]?.toString() || "",
-    }));
-    sellCrypto(crypto, true);
-  };
-
   const getTrendIcon = (crypto) => {
     const trend = trends[crypto];
-    console.log(`Rendering trend for ${crypto}: ${trend}`);
-    if (!trend) return null; // Brak danych trendu
+    if (!trend) return null;
     if (trend === "up") return <FaArrowUp className="trend-up" />;
     if (trend === "down") return <FaArrowDown className="trend-down" />;
     return <FaMinus className="trend-neutral" />;
@@ -305,7 +231,11 @@ function Home() {
           >
             Portfolio & History
           </button>
-          <p className="balance">
+          <p
+            className="balance"
+            onClick={() => navigate("/portfolio")}
+            style={{ cursor: "pointer" }}
+          >
             <FaDollarSign /> {formatBalance(balance)} USD
           </p>
           <button
