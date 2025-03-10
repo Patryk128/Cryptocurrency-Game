@@ -1,0 +1,39 @@
+.popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #28a745;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  animation: fadeInOut 3s ease-in-out;
+}
+
+.popup p {
+  margin: 0;
+}
+
+.popup.error {
+  background-color: #dc3545;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}

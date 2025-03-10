@@ -3,7 +3,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 .light-mode {
   background-color: #ffffff;
   color: #333333;
@@ -15,8 +14,10 @@
 }
 
 .container {
-  width: 100%;
   height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
@@ -31,11 +32,16 @@
   font-size: 1.5em;
   cursor: pointer;
   padding: 5px;
+  background-color: #6c757d;
+  color: white;
 }
 
 .balance {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   font-size: 1.2em;
-  margin: 10px 0;
+  margin: 0;
 }
 
 .prices,
@@ -49,35 +55,14 @@
 }
 
 .actions {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }
 
 .crypto-actions {
   display: flex;
   gap: 10px;
-}
-
-button {
-  padding: 8px 16px;
-  cursor: pointer;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-.logout-btn {
-  margin-top: 20px;
-  background-color: #dc3545;
-}
-
-.logout-btn:hover {
-  background-color: #b02a37;
 }
 
 .auth-container {
@@ -112,6 +97,10 @@ input {
   border-color: #888;
 }
 
+.dark-mode .empty-portfolio {
+  color: #999;
+}
+
 .welcome-container {
   max-width: 400px;
   margin: 0 auto;
@@ -121,24 +110,6 @@ input {
 .switch-text {
   margin-top: 15px;
   text-align: center;
-}
-
-.switch-button {
-  background: none;
-  border: none;
-  color: #007bff;
-  cursor: pointer;
-  padding: 0;
-  margin-left: 5px;
-  font-size: 1em;
-}
-
-.switch-button:hover {
-  text-decoration: underline;
-}
-
-.dark-mode .switch-button {
-  color: #66b3ff;
 }
 
 .crypto-row {
@@ -153,66 +124,15 @@ input {
 }
 
 .amount-input {
-  width: 150px;
+  width: 100px;
   margin: 10px 0;
   padding: 5px;
   background-color: inherit;
   color: inherit;
-  border: 1px solid #666;
+  border: 1px solid #ced4da;
   border-radius: 4px;
-}
-
-.crypto-actions {
-  display: flex;
-  gap: 10px;
-}
-
-.actions {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.portfolio-items {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-
-.portfolio-item {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.balance {
-  margin: 0;
-}
-
-.theme-toggle {
-  background: none;
-  border: none;
-  font-size: 1.5em;
-  cursor: pointer;
-}
-
-.logout-btn {
-  margin: 0;
-}
-
-.content {
-  padding: 20px;
-}
-
-.crypto-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.crypto-info {
-  width: 150px;
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
 }
 
 .portfolio-header {
@@ -221,13 +141,6 @@ input {
   gap: 10px;
 }
 
-.toggle-portfolio-btn {
-  background: none;
-  border: none;
-  font-size: 1.2em;
-  cursor: pointer;
-}
-
 .portfolio-items {
   display: flex;
   gap: 15px;
@@ -240,23 +153,16 @@ input {
   gap: 10px;
 }
 
-.sell-btn {
-  padding: 4px 8px;
-  font-size: 0.9em;
-  background-color: #dc3545;
-}
-
-.sell-btn:hover {
-  background-color: #b02a37;
-}
-
-.sell-btn:disabled {
-  background-color: #6c757d;
-  cursor: not-allowed;
+.portfolio-item span {
+  min-width: 120px;
+  display: inline-block;
 }
 
 .content {
+  flex: 1;
+  width: 100%;
   padding: 20px;
+  overflow-y: auto;
 }
 
 .price-row {
@@ -268,37 +174,18 @@ input {
 
 .price-info {
   width: 300px;
-}
-
-.buy-btn {
-  padding: 8px 16px;
-  background-color: #28a745;
-}
-
-.buy-btn:hover {
-  background-color: #218838;
-}
-
-.amount-input::-webkit-inner-spin-button,
-.amount-input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.portfolio-item span {
-  min-width: 120px;
-  display: inline-block;
+  flex: 1;
 }
 
 .prices-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .last-updated {
-  font-size: 0.9em;
+  font-size: 0.8em;
   display: flex;
   align-items: center;
   gap: 5px;
@@ -313,89 +200,9 @@ input {
   color: #666;
 }
 
-.dark-mode .empty-portfolio {
-  color: #999;
-}
-
-.portfolio-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.portfolio-item span {
-  min-width: 120px;
-}
-
-.portfolio-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.sell-all-btn {
-  padding: 4px 8px;
-  font-size: 0.9em;
-  background-color: #ff5733;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.sell-all-btn:hover {
-  background-color: #d44a2b;
-}
-
-.sell-all-btn:disabled {
-  background-color: #6c757d;
-  cursor: not-allowed;
-}
-
-.popup {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #28a745;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  animation: fadeInOut 3s ease-in-out;
-}
-
-.popup p {
-  margin: 0;
-}
-
-.popup.error {
-  background-color: #dc3545;
-}
-
-@keyframes fadeInOut {
-  0% {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  10% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  90% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-}
-
 .transactions-section {
   margin-top: 20px;
   padding: 10px;
-  background-color: var(--card-bg, #0073e6);
   border-radius: 5px;
 }
 
@@ -431,49 +238,42 @@ input {
   color: #6c757d;
 }
 
-.portfolio-btn {
-  padding: 4px 8px;
-  font-size: 0.9em;
-  background-color: #28a745;
-  color: white;
-  border: none;
+.theme-toggle:hover {
+  background-color: #5a6268;
+}
+
+.deposit-section {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.deposit-input {
+  padding: 5px;
+  width: 100px;
+  border: 1px solid #ced4da;
   border-radius: 4px;
-  cursor: pointer;
-  margin-right: 10px;
-}
-
-.portfolio-btn:hover {
-  background-color: #218838;
-}
-
-.back-btn {
-  padding: 4px 8px;
   font-size: 0.9em;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-right: 10px;
 }
 
-.back-btn:hover {
-  background-color: #0056b3;
+.theme-toggle:hover {
+  background-color: #5a6268;
 }
 
-.home-btn {
-  padding: 4px 8px;
-  font-size: 0.9em;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-right: 10px;
+.deposit-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin: 10px 0;
 }
 
-.home-btn:hover {
-  background-color: #0056b3;
+.custom-deposit {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
 }
 
 .trend-up {

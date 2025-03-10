@@ -17,11 +17,15 @@ import {
   FaArrowUp,
   FaArrowDown,
   FaMinus,
+  FaPlus,
 } from "react-icons/fa";
 import { SiBinance, SiDogecoin, SiRipple } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
 import Welcome from "./Welcome";
 import "../nav.css";
+import "../buttons.css";
+import "../popup.css";
+import "../modal.css";
 
 const cryptoList = {
   bitcoin: { name: "Bitcoin", icon: <FaBitcoin /> },
@@ -70,6 +74,8 @@ function Home() {
   const [lastUpdated, setLastUpdated] = useState(null);
   const [popupMessage, setPopupMessage] = useState(null);
   const [trends, setTrends] = useState({});
+  const [depositAmount, setDepositAmount] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
@@ -115,11 +121,13 @@ function Home() {
           "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,binancecoin,dogecoin,ripple&order=market_cap_desc&per_page=5&page=1&sparkline=false"
         );
         const data = response.data || [];
+        console.log("API response:", data);
 
         const newPrices = {};
         data.forEach((coin) => {
           newPrices[coin.id] = { usd: coin.current_price };
         });
+        console.log("New prices:", newPrices);
         dispatch(setPrices(newPrices));
         setLastUpdated(new Date().toLocaleTimeString());
 
@@ -129,6 +137,7 @@ function Home() {
           newTrends[coin.id] =
             change24h > 0 ? "up" : change24h < 0 ? "down" : "neutral";
         });
+        console.log("New trends:", newTrends);
         setTrends(newTrends);
       } catch (error) {
         console.error("Error fetching prices or trends:", error);
@@ -208,8 +217,67 @@ function Home() {
     }
   };
 
+  const depositFunds = async (amount) => {
+    const parsedAmount = parseFloat(amount);
+    if (isNaN(parsedAmount) || parsedAmount <= 0) {
+      showPopup("Please enter a valid deposit amount!");
+      return;
+    }
+
+    const newBalance = balance + parsedAmount;
+    try {
+      const userDocRef = doc(db, "users", user.uid);
+      await updateDoc(userDocRef, {
+        balance: newBalance,
+      });
+      dispatch(setBalance(newBalance));
+      setDepositAmount("");
+      setIsModalOpen(false);
+      showPopup(`Successfully deposited ${formatNumber(parsedAmount)} USD!`);
+    } catch (error) {
+      console.error("Error depositing funds:", error);
+      showPopup("An error occurred during deposit.");
+    }
+  };
+
+  const handleDepositInputChange = (e) => {
+    let value = e.target.value;
+
+    // Usuwamy wszystko poza cyframi i jedną kropką
+    value = value.replace(/[^0-9.]/g, ""); // Pozwala na cyfry i kropki
+    const dotCount = value.split(".").length - 1;
+    if (dotCount > 1) {
+      // Jeśli więcej niż jedna kropka, bierzemy tylko pierwszą część z jedną kropką
+      const firstDotIndex = value.indexOf(".");
+      value =
+        value.substring(0, firstDotIndex + 1) +
+        value.substring(firstDotIndex + 1).replace(/\./g, "");
+    }
+
+    // Ograniczamy do 2 miejsc po przecinku
+    const parts = value.split(".");
+    if (parts[1] && parts[1].length > 2) {
+      value = `${parts[0]}.${parts[1].slice(0, 2)}`;
+    }
+
+    setDepositAmount(value);
+  };
+
+  const handleDepositInputKeyPress = (e) => {
+    if (e.key === "Enter") {
+      depositFunds(depositAmount);
+    }
+  };
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setDepositAmount("");
+  };
+
   const getTrendIcon = (crypto) => {
     const trend = trends[crypto];
+    console.log(`Rendering trend for ${crypto}: ${trend}`);
     if (!trend) return null;
     if (trend === "up") return <FaArrowUp className="trend-up" />;
     if (trend === "down") return <FaArrowDown className="trend-down" />;
@@ -231,13 +299,12 @@ function Home() {
           >
             Portfolio & History
           </button>
-          <p
-            className="balance"
-            onClick={() => navigate("/portfolio")}
-            style={{ cursor: "pointer" }}
-          >
+          <p className="balance">
             <FaDollarSign /> {formatBalance(balance)} USD
           </p>
+          <button onClick={openModal} className="deposit-btn">
+            <FaPlus /> Deposit
+          </button>
           <button
             onClick={() => dispatch(toggleTheme())}
             className="theme-toggle"
@@ -284,6 +351,53 @@ function Home() {
           ))}
         </div>
       </div>
+
+      {isModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h2>Deposit Funds</h2>
+            <div className="deposit-options">
+              <button onClick={() => depositFunds(5)} className="deposit-btn">
+                5$
+              </button>
+              <button onClick={() => depositFunds(10)} className="deposit-btn">
+                10$
+              </button>
+              <button onClick={() => depositFunds(50)} className="deposit-btn">
+                50$
+              </button>
+              <button onClick={() => depositFunds(100)} className="deposit-btn">
+                100$
+              </button>
+              <button
+                onClick={() => depositFunds(1000)}
+                className="deposit-btn"
+              >
+                1000$
+              </button>
+            </div>
+            <div className="custom-deposit">
+              <input
+                type="text"
+                value={depositAmount}
+                onChange={handleDepositInputChange}
+                onKeyPress={handleDepositInputKeyPress}
+                placeholder="Custom amount"
+                className="deposit-input"
+              />
+              <button
+                onClick={() => depositFunds(depositAmount)}
+                className="custom-deposit-btn"
+              >
+                <FaPlus /> Deposit
+              </button>
+            </div>
+            <button onClick={closeModal} className="close-modal-btn">
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
       {popupMessage && (
         <Popup message={popupMessage} onClose={() => setPopupMessage(null)} />

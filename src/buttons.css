@@ -1,0 +1,184 @@
+button {
+  padding: 8px 16px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+.switch-button {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 5px;
+  font-size: 1em;
+}
+
+.switch-button:hover {
+  text-decoration: underline;
+}
+
+.dark-mode .switch-button {
+  color: #66b3ff;
+}
+
+.amount-input::-webkit-inner-spin-button,
+.amount-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.logout-btn {
+  margin: 0;
+  background-color: #dc3545;
+}
+
+.logout-btn:hover {
+  background-color: #c82333;
+}
+
+.deposit-btn {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.deposit-btn:hover {
+  background-color: #138496;
+}
+
+.toggle-portfolio-btn {
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.sell-btn {
+  padding: 4px 8px;
+  font-size: 0.9em;
+  background-color: #dc3545;
+}
+
+.sell-btn:hover {
+  background-color: #b02a37;
+}
+
+.sell-btn:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.buy-btn,
+.portfolio-btn,
+.theme-toggle,
+.logout-btn,
+.deposit-btn,
+.custom-deposit-btn,
+.close-modal-btn {
+  padding: 5px 10px;
+  font-size: 0.9em;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.buy-btn {
+  padding: 8px 16px;
+  background-color: #28a745;
+  color: white;
+}
+.buy-btn:hover {
+  background-color: #218838;
+}
+
+.sell-all-btn {
+  padding: 4px 8px;
+  font-size: 0.9em;
+  background-color: #ff5733;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.sell-all-btn:hover {
+  background-color: #d44a2b;
+}
+
+.sell-all-btn:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.portfolio-btn {
+  padding: 4px 8px;
+  font-size: 0.9em;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.portfolio-btn:hover {
+  background-color: #0056b3;
+}
+
+.custom-deposit-btn {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.custom-deposit-btn:hover {
+  background-color: #138496;
+}
+
+.back-btn {
+  padding: 4px 8px;
+  font-size: 0.9em;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.back-btn:hover {
+  background-color: #0056b3;
+}
+
+.home-btn {
+  padding: 4px 8px;
+  font-size: 0.9em;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.home-btn:hover {
+  background-color: #0056b3;
+}
+
+.close-modal-btn {
+  background-color: #6c757d;
+  color: white;
+  margin-top: 10px;
+}
+
+.close-modal-btn:hover {
+  background-color: #5a6268;
+}
