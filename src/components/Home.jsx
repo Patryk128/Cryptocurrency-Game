@@ -243,18 +243,15 @@ function Home() {
   const handleDepositInputChange = (e) => {
     let value = e.target.value;
 
-    // Usuwamy wszystko poza cyframi i jedną kropką
-    value = value.replace(/[^0-9.]/g, ""); // Pozwala na cyfry i kropki
+    value = value.replace(/[^0-9.]/g, "");
     const dotCount = value.split(".").length - 1;
     if (dotCount > 1) {
-      // Jeśli więcej niż jedna kropka, bierzemy tylko pierwszą część z jedną kropką
       const firstDotIndex = value.indexOf(".");
       value =
         value.substring(0, firstDotIndex + 1) +
         value.substring(firstDotIndex + 1).replace(/\./g, "");
     }
 
-    // Ograniczamy do 2 miejsc po przecinku
     const parts = value.split(".");
     if (parts[1] && parts[1].length > 2) {
       value = `${parts[0]}.${parts[1].slice(0, 2)}`;

@@ -3,18 +3,26 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+:root {
+  --light-bg: #ffffff;
+  --light-text: #333;
+  --dark-bg: #1a1a1a;
+  --dark-text: #ffffff;
+}
+
 .light-mode {
-  background-color: #ffffff;
-  color: #333333;
+  background-color: var(--light-bg);
+  color: var(--light-text);
 }
 
 .dark-mode {
-  background-color: #1a1a1a;
-  color: #ffffff;
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
 }
 
 .container {
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -36,36 +44,38 @@
   color: white;
 }
 
+.theme-toggle:hover {
+  background-color: #5a6268;
+}
+
 .balance {
   display: flex;
   align-items: center;
   gap: 5px;
   font-size: 1.2em;
-  margin: 0;
 }
 
 .prices,
 .portfolio {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 10px;
   margin: 15px 0;
 }
 
-.actions {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
+.actions,
 .crypto-actions {
   display: flex;
   gap: 10px;
 }
 
-.auth-container {
+.actions {
+  flex-direction: column;
+}
+
+.auth-container,
+.welcome-container {
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
@@ -85,13 +95,6 @@ input {
   border-radius: 4px;
 }
 
-.error {
-  color: #dc3545;
-  font-size: 0.9em;
-  display: block;
-  margin-top: 5px;
-}
-
 .dark-mode .amount-input,
 .dark-mode input {
   border-color: #888;
@@ -101,18 +104,13 @@ input {
   color: #999;
 }
 
-.welcome-container {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
 .switch-text {
   margin-top: 15px;
   text-align: center;
 }
 
-.crypto-row {
+.crypto-row,
+.price-row {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -123,7 +121,8 @@ input {
   width: 150px;
 }
 
-.amount-input {
+.amount-input,
+.deposit-input {
   width: 100px;
   margin: 10px 0;
   padding: 5px;
@@ -135,7 +134,8 @@ input {
   -moz-appearance: textfield;
 }
 
-.portfolio-header {
+.portfolio-header,
+.portfolio-item {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -143,18 +143,12 @@ input {
 
 .portfolio-items {
   display: flex;
+  flex-direction: column;
   gap: 15px;
-  flex-wrap: wrap;
-}
-
-.portfolio-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
 
 .portfolio-item span {
-  min-width: 120px;
+  min-width: 100px;
   display: inline-block;
 }
 
@@ -163,13 +157,6 @@ input {
   width: 100%;
   padding: 20px;
   overflow-y: auto;
-}
-
-.price-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 15px;
 }
 
 .price-info {
@@ -223,14 +210,17 @@ input {
   justify-content: space-between;
   padding: 8px;
   border-bottom: 1px solid #dee2e6;
+  border-radius: 4px;
 }
 
 .transaction-item.buy {
-  background-color: #00ff00;
+  background-color: rgba(40, 167, 69, 0.1);
+  border-left: 4px solid #28a745;
 }
 
 .transaction-item.sell {
-  background-color: #ff0000;
+  background-color: rgba(220, 53, 69, 0.1);
+  border-left: 4px solid #dc3545;
 }
 
 .transaction-date {
@@ -238,27 +228,12 @@ input {
   color: #6c757d;
 }
 
-.theme-toggle:hover {
-  background-color: #5a6268;
-}
-
-.deposit-section {
+.deposit-section,
+.custom-deposit {
   display: flex;
   align-items: center;
   gap: 5px;
   flex-wrap: wrap;
-}
-
-.deposit-input {
-  padding: 5px;
-  width: 100px;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  font-size: 0.9em;
-}
-
-.theme-toggle:hover {
-  background-color: #5a6268;
 }
 
 .deposit-options {
@@ -269,24 +244,20 @@ input {
   margin: 10px 0;
 }
 
-.custom-deposit {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 10px;
-}
-
 .trend-up {
   color: #28a745;
-  margin-left: 5px;
 }
 
 .trend-down {
   color: #dc3545;
-  margin-left: 5px;
 }
 
 .trend-neutral {
   color: #6c757d;
+}
+
+.trend-up,
+.trend-down,
+.trend-neutral {
   margin-left: 5px;
 }

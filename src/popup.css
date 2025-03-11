@@ -6,9 +6,10 @@
   border-radius: 5px;
   color: white;
   padding: 10px 20px;
-  border-radius: 4px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   animation: fadeInOut 3s ease-in-out;
+  min-width: 200px;
+  text-align: center;
 }
 
 .popup p {
@@ -24,11 +25,11 @@
     opacity: 0;
     transform: translateY(-20px);
   }
-  10% {
+  5% {
     opacity: 1;
     transform: translateY(0);
   }
-  90% {
+  95% {
     opacity: 1;
     transform: translateY(0);
   }

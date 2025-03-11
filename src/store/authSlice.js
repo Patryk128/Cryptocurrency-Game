@@ -1,10 +1,9 @@
-// src/store/authSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    user: null, // Będzie teraz zwykłym obiektem lub null
+    user: null,
   },
   reducers: {
     setUser: (state, action) => {
@@ -13,7 +12,6 @@ const authSlice = createSlice({
         ? {
             uid: user.uid,
             email: user.email,
-            // Dodaj inne potrzebne pola, np. displayName, jeśli używasz
           }
         : null;
     },

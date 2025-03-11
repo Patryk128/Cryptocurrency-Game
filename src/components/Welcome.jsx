@@ -1,4 +1,3 @@
-// src/components/Welcome.jsx
 import { useState } from "react";
 import Login from "./Login";
 import Register from "./Register";
