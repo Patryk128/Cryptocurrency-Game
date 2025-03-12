@@ -8,8 +8,16 @@ button {
   align-items: center;
   gap: 5px;
   font-size: 0.9em;
+  transition: 0.3s ease-in-out;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
 }
 
+/* Uniwersalne neonowe podświetlenie */
+button:hover {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Standardowe przyciski */
 .buy-btn,
 .portfolio-btn,
 .home-btn,
@@ -22,58 +30,78 @@ button {
 .home-btn:hover,
 .back-btn:hover {
   background-color: #0056b3;
+  box-shadow: 0 0 15px #0056b3;
 }
 
+/* Kupno */
 .buy-btn {
   background-color: #28a745;
+  box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
 }
 
 .buy-btn:hover {
   background-color: #218838;
+  box-shadow: 0 0 15px #218838;
 }
+
+/* Sprzedaż */
 .sell-btn,
 .sell-all-btn {
   background-color: #dc3545;
+  box-shadow: 0 0 10px rgba(220, 53, 69, 0.5);
 }
 
 .sell-btn:hover,
 .sell-all-btn:hover {
   background-color: #b02a37;
+  box-shadow: 0 0 15px #b02a37;
 }
 
+/* Wyłączone przyciski */
 .sell-btn:disabled,
 .sell-all-btn:disabled {
   background-color: #6c757d;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
+/* Depozyty */
 .deposit-btn,
 .custom-deposit-btn {
   background-color: #17a2b8;
+  box-shadow: 0 0 10px rgba(23, 162, 184, 0.5);
 }
 
 .deposit-btn:hover,
 .custom-deposit-btn:hover {
   background-color: #138496;
+  box-shadow: 0 0 15px #138496;
 }
 
+/* Zamknięcie modala */
 .close-modal-btn {
   background-color: #6c757d;
   margin-top: 10px;
+  box-shadow: 0 0 10px rgba(108, 117, 125, 0.5);
 }
 
 .close-modal-btn:hover {
   background-color: #5a6268;
+  box-shadow: 0 0 15px #5a6268;
 }
 
+/* Wylogowanie */
 .logout-btn {
   background-color: #dc3545;
+  box-shadow: 0 0 10px rgba(220, 53, 69, 0.5);
 }
 
 .logout-btn:hover {
   background-color: #c82333;
+  box-shadow: 0 0 15px #c82333;
 }
 
+/* Przycisk zmiany */
 .switch-button {
   background: none;
   border: none;
@@ -82,18 +110,16 @@ button {
   padding: 0;
   margin-left: 5px;
   font-size: 1em;
+  transition: 0.2s ease-in-out;
 }
 
 .switch-button:hover {
   text-decoration: underline;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
 }
 
+/* Tryb ciemny */
 .dark-mode .switch-button {
   color: #66b3ff;
-}
-
-.amount-input::-webkit-inner-spin-button,
-.amount-input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+  box-shadow: 0 0 10px rgba(102, 179, 255, 0.5);
 }

@@ -22,10 +22,10 @@ import {
 import { SiBinance, SiDogecoin, SiRipple } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
 import Welcome from "./Welcome";
-import "../nav.css";
-import "../buttons.css";
-import "../popup.css";
-import "../modal.css";
+import "../styles/nav.css";
+import "../styles/buttons.css";
+import "../styles/popup.css";
+import "../styles/modal.css";
 
 const cryptoList = {
   bitcoin: { name: "Bitcoin", icon: <FaBitcoin /> },
@@ -121,13 +121,11 @@ function Home() {
           "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,binancecoin,dogecoin,ripple&order=market_cap_desc&per_page=5&page=1&sparkline=false"
         );
         const data = response.data || [];
-        console.log("API response:", data);
 
         const newPrices = {};
         data.forEach((coin) => {
           newPrices[coin.id] = { usd: coin.current_price };
         });
-        console.log("New prices:", newPrices);
         dispatch(setPrices(newPrices));
         setLastUpdated(new Date().toLocaleTimeString());
 
@@ -137,7 +135,6 @@ function Home() {
           newTrends[coin.id] =
             change24h > 0 ? "up" : change24h < 0 ? "down" : "neutral";
         });
-        console.log("New trends:", newTrends);
         setTrends(newTrends);
       } catch (error) {
         console.error("Error fetching prices or trends:", error);
@@ -274,7 +271,6 @@ function Home() {
 
   const getTrendIcon = (crypto) => {
     const trend = trends[crypto];
-    console.log(`Rendering trend for ${crypto}: ${trend}`);
     if (!trend) return null;
     if (trend === "up") return <FaArrowUp className="trend-up" />;
     if (trend === "down") return <FaArrowDown className="trend-down" />;
