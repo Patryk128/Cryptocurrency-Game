@@ -12,15 +12,34 @@
 }
 
 .modal {
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
   border-radius: 10px;
   box-shadow: 0 8px 32px 0 rgba(89, 90, 110, 0.37);
   text-align: center;
-  width: 300px;
   max-width: 90vw;
 
   background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+  .modal {
+    padding: 30px;
+    width: 90%;
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal {
+    padding: 20px;
+    width: 95%;
+    max-width: 350px;
+  }
 }

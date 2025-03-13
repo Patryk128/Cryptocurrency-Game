@@ -38,3 +38,23 @@
     transform: translateY(-20px);
   }
 }
+
+@media (max-width: 768px) {
+  .popup {
+    top: 10px;
+    right: 10px;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    min-width: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .popup {
+    top: 5px;
+    right: 5px;
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    min-width: 160px;
+  }
+}

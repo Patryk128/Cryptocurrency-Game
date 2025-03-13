@@ -66,16 +66,28 @@ button:hover {
 }
 
 /* Depozyty */
-.deposit-btn,
-.custom-deposit-btn {
+.deposit-btn {
   background-color: #17a2b8;
   box-shadow: 0 0 10px rgba(23, 162, 184, 0.5);
 }
+.custom-deposit-btn {
+  display: inline-block;
+  background-color: #28a745;
+  text-align: center;
+  padding: 10px 20px;
+  max-width: 300px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
 
-.deposit-btn:hover,
-.custom-deposit-btn:hover {
+.deposit-btn:hover {
   background-color: #138496;
   box-shadow: 0 0 15px #138496;
+}
+.custom-deposit-btn:hover {
+  background-color: #218838;
+  box-shadow: 0 0 15px #1e7e34;
 }
 
 /* Zamknięcie modala */
@@ -122,4 +134,38 @@ button:hover {
 .dark-mode .switch-button {
   color: #66b3ff;
   box-shadow: 0 0 10px rgba(102, 179, 255, 0.5);
+}
+
+@media (max-width: 768px) {
+  button {
+    padding: 10px;
+    font-size: 1em;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .custom-deposit-btn {
+    max-width: 100%;
+  }
+
+  .switch-button {
+    font-size: 0.9em;
+    margin-left: 0;
+  }
+
+  .actions,
+  .crypto-actions {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .buy-btn,
+  .sell-btn,
+  .sell-all-btn,
+  .deposit-btn,
+  .logout-btn,
+  .close-modal-btn {
+    width: 100%;
+  }
 }

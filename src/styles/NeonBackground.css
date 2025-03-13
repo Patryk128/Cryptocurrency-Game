@@ -101,3 +101,65 @@
     transform: translateY(10px);
   }
 }
+
+@media (max-width: 768px) {
+  .neon-icon {
+    font-size: 3rem; /* Zmniejszony rozmiar ikon */
+  }
+
+  .bitcoin {
+    left: 5%;
+    top: 15%;
+  }
+
+  .ethereum {
+    right: 10%;
+    top: 30%;
+  }
+
+  .binance {
+    left: 20%;
+    bottom: 5%;
+  }
+
+  .dogecoin {
+    right: 5%;
+    bottom: 10%;
+  }
+
+  .ripple {
+    left: 45%;
+    top: 45%;
+  }
+}
+
+@media (max-width: 480px) {
+  .neon-icon {
+    font-size: 2.5rem; /* Jeszcze mniejsze ikony dla bardzo małych ekranów */
+  }
+
+  .bitcoin {
+    left: 2%;
+    top: 10%;
+  }
+
+  .ethereum {
+    right: 5%;
+    top: 25%;
+  }
+
+  .binance {
+    left: 15%;
+    bottom: 5%;
+  }
+
+  .dogecoin {
+    right: 2%;
+    bottom: 8%;
+  }
+
+  .ripple {
+    left: 40%;
+    top: 40%;
+  }
+}
