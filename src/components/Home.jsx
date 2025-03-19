@@ -334,7 +334,6 @@ function Home() {
                 min="0"
                 value={amounts[id] || ""}
                 onChange={(e) => handleAmountChange(id, e.target.value, "buy")}
-                placeholder="Amount (e.g., 0.01)"
                 className="amount-input"
               />
               <button onClick={() => buyCrypto(id)} className="buy-btn">

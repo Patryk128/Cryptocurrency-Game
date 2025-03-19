@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.amount-input::-webkit-outer-spin-button,
+.amount-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.amount-input {
+  -moz-appearance: textfield;
+}
+
+button {
+  padding: 8px 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  display: inline-block;
+  font-size: 0.9em;
+  transition: 0.3s ease-in-out;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+  z-index: 2;
+}
+
+button:hover {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}

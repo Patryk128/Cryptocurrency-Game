@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { toggleTheme } from "../store/themeSlice";
 import { setBalance, setPortfolio } from "../store/portfolioSlice";
 import { auth, db } from "../firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -10,6 +11,9 @@ import {
   FaEthereum,
   FaDollarSign,
   FaEye,
+  FaSun,
+  FaMoon,
+  FaPlus,
   FaEyeSlash,
 } from "react-icons/fa";
 import { SiBinance, SiDogecoin, SiRipple } from "react-icons/si";
@@ -42,10 +46,26 @@ const formatBalance = (num) => {
   });
 };
 
+const Popup = ({ message, onClose }) => {
+  useEffect(() => {
+    const timer = setTimeout(onClose, 3000);
+    return () => clearTimeout(timer);
+  }, [onClose]);
+
+  return (
+    <div className="popup">
+      <p>{message}</p>
+    </div>
+  );
+};
+
 function Portfolio() {
   const [showPortfolio, setShowPortfolio] = useState(true);
   const [sellAmounts, setSellAmounts] = useState({});
   const [transactions, setTransactions] = useState([]);
+  const [depositAmount, setDepositAmount] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [popupMessage, setPopupMessage] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
@@ -54,6 +74,8 @@ function Portfolio() {
     portfolio = {},
     prices = {},
   } = useSelector((state) => state.portfolio);
+
+  const { isDarkMode } = useSelector((state) => state.theme);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -144,6 +166,66 @@ function Portfolio() {
     sellCrypto(crypto, true);
   };
 
+  const showPopup = (message) => {
+    setPopupMessage(message);
+    setTimeout(() => setPopupMessage(null), 3000);
+  };
+
+  const depositFunds = async (amount) => {
+    const parsedAmount = parseFloat(amount);
+    if (isNaN(parsedAmount) || parsedAmount <= 0) {
+      showPopup("Please enter a valid deposit amount!");
+      return;
+    }
+
+    const newBalance = balance + parsedAmount;
+    try {
+      const userDocRef = doc(db, "users", user.uid);
+      await updateDoc(userDocRef, {
+        balance: newBalance,
+      });
+      dispatch(setBalance(newBalance));
+      setDepositAmount("");
+      setIsModalOpen(false);
+      showPopup(`Successfully deposited ${formatNumber(parsedAmount)} USD!`);
+    } catch (error) {
+      console.error("Error depositing funds:", error);
+      showPopup("An error occurred during deposit.");
+    }
+  };
+
+  const handleDepositInputChange = (e) => {
+    let value = e.target.value;
+
+    value = value.replace(/[^0-9.]/g, "");
+    const dotCount = value.split(".").length - 1;
+    if (dotCount > 1) {
+      const firstDotIndex = value.indexOf(".");
+      value =
+        value.substring(0, firstDotIndex + 1) +
+        value.substring(firstDotIndex + 1).replace(/\./g, "");
+    }
+
+    const parts = value.split(".");
+    if (parts[1] && parts[1].length > 2) {
+      value = `${parts[0]}.${parts[1].slice(0, 2)}`;
+    }
+
+    setDepositAmount(value);
+  };
+
+  const handleDepositInputKeyPress = (e) => {
+    if (e.key === "Enter") {
+      depositFunds(depositAmount);
+    }
+  };
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setDepositAmount("");
+  };
+
   if (!user) return null;
 
   return (
@@ -161,6 +243,18 @@ function Portfolio() {
           <p className="balance">
             <FaDollarSign /> {formatBalance(balance)} USD
           </p>
+          <button onClick={openModal} className="deposit-btn">
+            <FaPlus /> Deposit
+          </button>
+          <button
+            onClick={() => dispatch(toggleTheme())}
+            className="theme-toggle"
+            title={
+              isDarkMode ? "Switch to light theme" : "Switch to dark theme"
+            }
+          >
+            {isDarkMode ? <FaSun /> : <FaMoon />}
+          </button>
           <button onClick={() => auth.signOut()} className="logout-btn">
             Logout
           </button>
@@ -243,6 +337,57 @@ function Portfolio() {
           )}
         </div>
       </div>
+
+      {isModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h2>Deposit Funds</h2>
+            <div className="deposit-options">
+              <button onClick={() => depositFunds(5)} className="deposit-btn">
+                5$
+              </button>
+              <button onClick={() => depositFunds(10)} className="deposit-btn">
+                10$
+              </button>
+              <button onClick={() => depositFunds(50)} className="deposit-btn">
+                50$
+              </button>
+              <button onClick={() => depositFunds(100)} className="deposit-btn">
+                100$
+              </button>
+              <button
+                onClick={() => depositFunds(1000)}
+                className="deposit-btn"
+              >
+                1000$
+              </button>
+            </div>
+            <div className="custom-deposit">
+              <input
+                type="text"
+                value={depositAmount}
+                onChange={handleDepositInputChange}
+                onKeyPress={handleDepositInputKeyPress}
+                placeholder="Custom amount"
+                className="deposit-input"
+              />
+              <button
+                onClick={() => depositFunds(depositAmount)}
+                className="custom-deposit-btn"
+              >
+                <FaPlus /> Deposit
+              </button>
+            </div>
+            <button onClick={closeModal} className="close-modal-btn">
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
+      {popupMessage && (
+        <Popup message={popupMessage} onClose={() => setPopupMessage(null)} />
+      )}
     </div>
   );
 }

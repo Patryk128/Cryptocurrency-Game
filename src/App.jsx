@@ -6,7 +6,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Portfolio from "./components/Portfolio";
 import ThemeWrapper from "./components/ThemeWrapper";
-import NeonBackground from "./components/NeonBackground"; // Nowy komponent
+import NeonBackground from "./components/NeonBackground";
 
 function App() {
   return (

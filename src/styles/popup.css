@@ -10,6 +10,7 @@
   animation: fadeInOut 3s ease-in-out;
   min-width: 200px;
   text-align: center;
+  z-index: 5;
 }
 
 .popup p {
