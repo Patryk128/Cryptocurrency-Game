@@ -117,9 +117,19 @@ function Home() {
 
     const fetchPricesAndTrends = async () => {
       try {
-        const response = await axios.get(
-          "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,binancecoin,dogecoin,ripple&order=market_cap_desc&per_page=5&page=1&sparkline=false"
-        );
+        const baseURL = import.meta.env.VITE_API_BASE_URL;
+        const ids = import.meta.env.VITE_API_CURRENCIES;
+        const vsCurrency = import.meta.env.VITE_API_VS_CURRENCY;
+        const response = await axios.get(`${baseURL}/coins/markets`, {
+          params: {
+            vs_currency: vsCurrency,
+            ids: ids,
+            order: "market_cap_desc",
+            per_page: 5,
+            page: 1,
+            sparkline: false,
+          },
+        });
         const data = response.data || [];
 
         const newPrices = {};
